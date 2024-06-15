@@ -4,7 +4,7 @@ import React from "react";
 export const TopbarContainer = ({ nodes }) => {
   const toast = useToast();
   const checkAllConnected = () => {
-    const emptyTargetNodeExist = nodes.find(
+    const emptyTargetNodeExist = nodes.filter(
       (node) => !node.data.target_connected
     );
     if (emptyTargetNodeExist) {
@@ -12,7 +12,9 @@ export const TopbarContainer = ({ nodes }) => {
         position: "top",
         status: "error",
         variant: "solid",
-        title: "Cannot save flow",
+        title: `Cannot save flow. ${emptyTargetNodeExist?.length} ${
+          emptyTargetNodeExist.length == 1 ? "Node has" : "Nodes have"
+        } empty target handle.`,
         duration: 2500,
         containerStyle: {
           fontWeight: 400,
