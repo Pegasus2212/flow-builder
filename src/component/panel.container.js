@@ -8,7 +8,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { MdOutlineMessage } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
 export const PanelContainer = ({ setSelectedNode, selectedNode, setNodes }) => {
@@ -67,8 +67,12 @@ const NodePanel = () => {
   );
 };
 
-const SettingPanel = ({ selectedNode, setSelectedNode, setNodes }) => {
+const SettingPanel = memo(({ selectedNode, setSelectedNode, setNodes }) => {
+  console.log("asdasd", selectedNode.data.text);
   const [textValue, setTextValue] = useState(selectedNode.data.text);
+  useEffect(() => {
+    setTextValue(selectedNode.data.text);
+  }, [selectedNode]);
   return (
     <Box>
       <Flex
@@ -127,4 +131,4 @@ const SettingPanel = ({ selectedNode, setSelectedNode, setNodes }) => {
       </Button>
     </Box>
   );
-};
+});
